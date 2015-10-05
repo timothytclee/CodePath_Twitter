@@ -28,5 +28,5 @@ Time spent: 15
 
 ### Walkthrough
 
-![Video Walkthrough](...)
+![https://raw.githubusercontent.com/timothytclee/CodePath_Twitter/master/CodePath_Twitter1.gif]
 
