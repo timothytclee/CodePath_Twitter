@@ -1,14 +1,19 @@
 //
-//  TweetCell.swift
+//  MultiuseTweetCell.swift
 //  CodePath_Twitter
 //
-//  Created by Timothy Lee on 9/30/15.
+//  Created by Timothy Lee on 10/8/15.
 //  Copyright © 2015 Timothy Lee. All rights reserved.
 //
 
 import UIKit
 
-class TweetCell: UITableViewCell {
+@objc protocol MultiuseTweetCellDelegate {
+    optional func multiuseTweetCell(multiuseTweetCell: MultiuseTweetCell, didTapProfileImage user: User)
+    optional func multiuseTweetCell(multiuseTweetCell: MultiuseTweetCell, didTapReplyButton tweet: Tweet)
+}
+
+class MultiuseTweetCell: UITableViewCell {
 
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -17,6 +22,8 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetTimeElapsedLabel: UILabel!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var favoriteButton: UIButton!
+    
+    weak var delegate: MultiuseTweetCellDelegate?
     
     var tweet: Tweet! {
         didSet {
@@ -31,16 +38,16 @@ class TweetCell: UITableViewCell {
             if (tweet.retweeted == true) {
                 retweetButton.setImage(UIImage(named: "retweet_on.png"), forState: UIControlState.Normal)
             }
-
         }
     }
+    
     @IBAction func favoriteButtonTap(sender: AnyObject) {
         tweet.favorite()
         favoriteButton.setImage(UIImage(named: "favorite_on.png"), forState: UIControlState.Normal)
         print("favorited tweet")
     }
     
-
+    
     @IBAction func retweetButtonTap(sender: AnyObject) {
         tweet.retweet()
         retweetButton.setImage(UIImage(named: "retweet_on.png"), forState: UIControlState.Normal)
@@ -48,18 +55,36 @@ class TweetCell: UITableViewCell {
     }
     
     @IBAction func replyButtonTap(sender: AnyObject) {
-
+        self.delegate?.multiuseTweetCell?(self, didTapReplyButton: self.tweet!)
+        print("delegate - tweet")
     }
+    
+//    @IBAction func onImageTap(sender: UITapGestureRecognizer) {
+//        self.delegate?.multiuseTweetCell?(self, didTapProfileImage: self.tweet.user!)
+//        print("delegate - user")
+//    }
+    
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         userProfileImage.layer.cornerRadius = 3
         userProfileImage.clipsToBounds = true
+        let imageTap = UITapGestureRecognizer(target: self, action: "onImageTap:")
+//        imageTap.delegate = self
+        userProfileImage.addGestureRecognizer(imageTap)
     }
-
+    
+    func onImageTap(recognizer: UITapGestureRecognizer) {
+        print("imagetap")
+        let user = self.tweet.user
+        delegate?.multiuseTweetCell?(self, didTapProfileImage: user!)
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
 }
+

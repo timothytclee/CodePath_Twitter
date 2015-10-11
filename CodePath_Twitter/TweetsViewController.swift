@@ -8,10 +8,12 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate, MultiuseTweetCellDelegate {
     
+    var user: User?
     var tweets: [Tweet]?
     var refreshControl: UIRefreshControl!
+    var timelineTitle: String? = "Home"
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,7 +23,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Home"
+        if user == nil {
+            user = User.currentUser
+        }
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -31,15 +35,36 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100
+        
+        tableView.registerNib(UINib(nibName: "ProfileCell", bundle: nil), forCellReuseIdentifier: "ProfileCell")
+        tableView.registerNib(UINib(nibName: "MultiuseTweetCell", bundle: nil), forCellReuseIdentifier: "MultiuseTweetCell")
 
         refreshTimelineTweets()
     }
     
     func refreshTimelineTweets() {
-        TwitterClient.sharedinstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
+        self.navigationItem.title = timelineTitle
+        if timelineTitle! == "Profile" {
+            print(user!.screenname!)
+            TwitterClient.sharedinstance.userTimelineWithParams(["screen_name":user!.screenname!]) { (tweets, error) -> () in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        }
+        if timelineTitle! == "Home" {
+            TwitterClient.sharedinstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
+            }
+        }
+        if timelineTitle! == "Mentions" {
+            TwitterClient.sharedinstance.mentionsTimelineWithParams(nil) { (tweets, error) -> () in
+                self.tweets = tweets
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
     }
 
@@ -57,8 +82,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCellID", forIndexPath: indexPath) as! TweetCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("MultiuseTweetCell", forIndexPath: indexPath) as! MultiuseTweetCell
         cell.tweet = tweets![indexPath.row]
+        cell.delegate = self
         return cell
     }
     
@@ -68,11 +94,43 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch timelineTitle! {
+        case "Profile":
+            return 185 as CGFloat
+        default:
+            return 0 as CGFloat
+        }
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCellWithIdentifier("ProfileCell") as! ProfileCell
+        headerCell.nameLabel.text = user?.name
+        headerCell.screennameLabel.text = "@\((user?.screenname)!)"
+        headerCell.profileImage.setImageWithURL(NSURL(string: (user?.profileImageUrl)!))
+        headerCell.profileImage.layer.cornerRadius = 3
+        headerCell.tweetCount.text = String((user?.tweets)!)
+        headerCell.followersCount.text = String((user?.followers)!)
+        headerCell.followingCount.text = String((user?.following)!)
+        if user?.coverImageUrl == nil {
+        } else {
+            headerCell.backgroundImage.setImageWithURL(NSURL(string: (user?.coverImageUrl)!))
+        }
+        return headerCell
+    }
+    
+    func multiuseTweetCell(multiuseTweetCell: MultiuseTweetCell, didTapProfileImage user: User) {
+        print("tweetsVC got the tap event")
+        self.user = user
+//        self.timelineTitle = "Profile"
+//        refreshTimelineTweets()
+        self.performSegueWithIdentifier("ProfileViewSegue", sender: self)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         switch segue.identifier! {
         case "TweetDetailSegue":
-            
             let vc = segue.destinationViewController as! TweetDetailViewController
             let indexPath = tableView.indexPathForSelectedRow
             vc.tweetDetails = tweets![indexPath!.row]
@@ -81,6 +139,11 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             let navvc = segue.destinationViewController as! UINavigationController
             let vc = navvc.viewControllers.first as! ComposeViewController
             vc.delegate = self
+            
+        case "ProfileViewSegue":
+            let navvc = segue.destinationViewController as! UINavigationController
+            let vc = navvc.viewControllers.first as! ProfileViewController
+            vc.user = user
 
         default:
             return

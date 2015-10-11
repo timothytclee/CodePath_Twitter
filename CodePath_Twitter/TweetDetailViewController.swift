@@ -26,7 +26,7 @@ class TweetDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         userNameLabel.text = tweetDetails.user?.name
-        userScrennameLabel.text = "@\(tweetDetails.user?.screenname)"
+        userScrennameLabel.text = "@\((tweetDetails.user?.screenname)!)"
         tweetContentsLabel.text = tweetDetails.text
 
         userProfileImage.setImageWithURL(NSURL(string: (tweetDetails.user?.profileImageUrl)!))
@@ -40,6 +40,34 @@ class TweetDetailViewController: UIViewController {
         refreshData()
 
     }
+    
+    @IBAction func onProfileTap(sender: UITapGestureRecognizer) {
+        print("imagetap")
+        self.performSegueWithIdentifier("tweetDetailToProfileSegue", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let navvc = segue.destinationViewController as! UINavigationController
+        let vc = navvc.viewControllers.first as! ProfileViewController
+        navvc.navigationItem.title = "Profile"
+        vc.user = tweetDetails.user
+        
+        TwitterClient.sharedinstance.userTimelineWithParams(["screen_name": tweetDetails.user!.screenname!]) { (tweets, error) -> () in
+            if error == nil {
+                vc.tweets = tweets
+                print("success loading user tweets")
+            } else {
+                print("error: \(error)")
+            }
+        }
+        
+        print("segue coming")
+        print(vc.user)
+        print(vc.user!.screenname!)
+        print(vc.tweets)
+        
+    }
+
     
     func refreshData() {
         numberOfRetweetsLabel.text = "\(tweetDetails.numberOfRetweets!)"
