@@ -141,8 +141,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             vc.delegate = self
             
         case "ProfileViewSegue":
-            let navvc = segue.destinationViewController as! UINavigationController
-            let vc = navvc.viewControllers.first as! ProfileViewController
+            let vc = segue.destinationViewController as! ProfileViewController
             vc.user = user
 
         default:

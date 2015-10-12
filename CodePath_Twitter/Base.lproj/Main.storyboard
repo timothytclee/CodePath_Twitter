@@ -28,7 +28,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="v8v-gL-yTg" kind="push" identifier="" id="q60-B7-KI6"/>
+                        <segue destination="v8v-gL-yTg" kind="push" identifier="loginSegue" animates="NO" id="q60-B7-KI6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -286,7 +286,7 @@
                     <connections>
                         <outlet property="tableView" destination="yQm-vb-JuI" id="OIf-9k-8FL"/>
                         <segue destination="wkm-E1-VK7" kind="push" identifier="TweetDetailSegue" id="zHA-Hj-QGC"/>
-                        <segue destination="VPK-sp-LFu" kind="modal" identifier="ProfileViewSegue" id="JlZ-wl-GPQ"/>
+                        <segue destination="ksJ-z9-tC6" kind="push" identifier="ProfileViewSegue" id="77W-zh-K4c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bGP-zk-8Uc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -486,11 +486,11 @@
                 <tapGestureRecognizer id="N51-cL-Ag6">
                     <connections>
                         <action selector="onProfileTap:" destination="wkm-E1-VK7" id="hUN-jG-5ZU"/>
-                        <segue destination="VPK-sp-LFu" kind="modal" identifier="tweetDetailToProfileSegue" id="FOs-Cn-6x6"/>
+                        <segue destination="ksJ-z9-tC6" kind="push" identifier="tweetDetailToProfileSegue" id="2bn-7K-jVG"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1355" y="220"/>
+            <point key="canvasLocation" x="1427" y="198"/>
         </scene>
         <!--Compose-->
         <scene sceneID="U87-bL-Hur">
@@ -627,8 +627,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9vc-tC-cCN">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9vc-tC-cCN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -636,7 +636,7 @@
                         <constraints>
                             <constraint firstItem="9vc-tC-cCN" firstAttribute="leading" secondItem="dl1-Mp-PcW" secondAttribute="leading" id="cso-6T-VCl"/>
                             <constraint firstAttribute="trailing" secondItem="9vc-tC-cCN" secondAttribute="trailing" id="gYB-7f-Rh4"/>
-                            <constraint firstItem="9vc-tC-cCN" firstAttribute="top" secondItem="VJp-hG-al9" secondAttribute="bottom" id="iCV-0T-aVi"/>
+                            <constraint firstItem="9vc-tC-cCN" firstAttribute="top" secondItem="VJp-hG-al9" secondAttribute="bottom" constant="-64" id="iCV-0T-aVi"/>
                             <constraint firstItem="gXR-mY-SYo" firstAttribute="top" secondItem="9vc-tC-cCN" secondAttribute="bottom" id="saE-3p-c4i"/>
                         </constraints>
                     </view>
@@ -647,26 +647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FaL-JF-hSZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2145" y="266"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="caS-Xy-V2R">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VPK-sp-LFu" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="9eI-Eo-R6h"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EhC-cG-gnh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ksJ-z9-tC6" kind="relationship" relationship="rootViewController" id="IcU-13-FMb"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mVc-sY-9Cw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1781" y="364"/>
+            <point key="canvasLocation" x="1917" y="266"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YuZ-TM-gFP">
@@ -699,6 +680,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MhL-y7-p5y"/>
-        <segue reference="JlZ-wl-GPQ"/>
+        <segue reference="77W-zh-K4c"/>
     </inferredMetricsTieBreakers>
 </document>

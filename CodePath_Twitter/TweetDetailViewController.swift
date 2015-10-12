@@ -47,9 +47,8 @@ class TweetDetailViewController: UIViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let navvc = segue.destinationViewController as! UINavigationController
-        let vc = navvc.viewControllers.first as! ProfileViewController
-        navvc.navigationItem.title = "Profile"
+        let vc = segue.destinationViewController as! ProfileViewController
+        vc.navigationItem.title = "Profile"
         vc.user = tweetDetails.user
         
         TwitterClient.sharedinstance.userTimelineWithParams(["screen_name": tweetDetails.user!.screenname!]) { (tweets, error) -> () in
