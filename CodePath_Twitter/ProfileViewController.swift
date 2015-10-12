@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.registerNib(UINib(nibName: "ProfileCell", bundle: nil), forCellReuseIdentifier: "ProfileCell")
         tableView.registerNib(UINib(nibName: "MultiuseTweetCell", bundle: nil), forCellReuseIdentifier: "MultiuseTweetCell")
         
+        
         self.navigationItem.title == "Profile"
         
         if user == nil {
@@ -38,10 +39,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             if error == nil {
                 self.tweets = tweets
                 print("success loading user tweets")
+                self.tableView.reloadData()
             } else {
                 print("error: \(error)")
             }
         }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -56,23 +56,13 @@ class MultiuseTweetCell: UITableViewCell {
     
     @IBAction func replyButtonTap(sender: AnyObject) {
         self.delegate?.multiuseTweetCell?(self, didTapReplyButton: self.tweet!)
-        print("delegate - tweet")
     }
-    
-//    @IBAction func onImageTap(sender: UITapGestureRecognizer) {
-//        self.delegate?.multiuseTweetCell?(self, didTapProfileImage: self.tweet.user!)
-//        print("delegate - user")
-//    }
-    
-
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         userProfileImage.layer.cornerRadius = 3
         userProfileImage.clipsToBounds = true
         let imageTap = UITapGestureRecognizer(target: self, action: "onImageTap:")
-//        imageTap.delegate = self
         userProfileImage.addGestureRecognizer(imageTap)
     }
     

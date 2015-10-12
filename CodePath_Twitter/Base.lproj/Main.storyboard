@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="MXS-Kn-SAR">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -27,13 +27,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Po0-a3-SBo"/>
                     <connections>
-                        <segue destination="v8v-gL-yTg" kind="push" identifier="loginSegue" animates="NO" id="q60-B7-KI6"/>
+                        <segue destination="yyz-KP-958" kind="modal" identifier="loginSegue" id="nFR-pa-rXi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="118" y="-465"/>
+            <point key="canvasLocation" x="1122" y="-465"/>
         </scene>
         <!--Hamburger View Controller-->
         <scene sceneID="AhI-nH-2bf">
@@ -86,7 +87,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1064" y="-465"/>
+            <point key="canvasLocation" x="1596" y="-465"/>
         </scene>
         <!--Hamburger Menu View Controller-->
         <scene sceneID="vB0-Uq-la1">
@@ -146,7 +147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="osb-N5-mHk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1456" y="-465"/>
+            <point key="canvasLocation" x="1988" y="-465"/>
         </scene>
         <!--TweetsViewController-->
         <scene sceneID="zHO-XL-5lU">
@@ -627,7 +628,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9vc-tC-cCN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9vc-tC-cCN">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -650,23 +651,22 @@
             <point key="canvasLocation" x="1917" y="266"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="YuZ-TM-gFP">
+        <scene sceneID="cjf-hQ-zF2">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v8v-gL-yTg" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MXS-Kn-SAR" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="QNs-fK-KWs"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MVN-5f-Eaw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1HS-Fq-PhB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="yyz-KP-958" kind="relationship" relationship="rootViewController" id="8yh-GU-PCy"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="emj-hk-9e3"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="THr-ZG-ok7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="waX-9E-bsV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="532" y="-465"/>
+            <point key="canvasLocation" x="590" y="-465"/>
         </scene>
     </scenes>
     <resources>

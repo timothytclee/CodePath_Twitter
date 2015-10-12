@@ -40,6 +40,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.registerNib(UINib(nibName: "MultiuseTweetCell", bundle: nil), forCellReuseIdentifier: "MultiuseTweetCell")
 
         refreshTimelineTweets()
+        tableView.reloadData()
     }
     
     func refreshTimelineTweets() {
