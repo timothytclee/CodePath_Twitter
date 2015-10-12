@@ -19,7 +19,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         
-
+        if User.currentUser != nil {
+            // Go to the logged in screen
+            print("current user detected")
+            
+            let hamburgerViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController") as! HamburgerViewController
+            
+            let hamburgerMenuViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerMenuViewController") as! HamburgerMenuViewController
+            
+            window?.rootViewController = hamburgerViewController
+            
+            hamburgerMenuViewController.hamburgerViewController = hamburgerViewController
+            
+            hamburgerViewController.hamburgerMenuViewController = hamburgerMenuViewController
+            
+        }
         
         return true
     }
@@ -41,28 +55,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        if User.currentUser != nil {
-            // Go to the logged in screen
-            print("current user detected")
-            //            let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as UIViewController
-            //            let vc = storyboard.instantiateViewControllerWithIdentifier("NavigationController") as UIViewController
-            
-            let hamburgerViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController") as! HamburgerViewController
-            
-            let hamburgerMenuViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerMenuViewController") as! HamburgerMenuViewController
-            
-            window?.rootViewController = hamburgerViewController
-            
-            hamburgerMenuViewController.hamburgerViewController = hamburgerViewController
-            
-            hamburgerViewController.hamburgerMenuViewController = hamburgerMenuViewController
-            
-        }
+
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-
+//        if User.currentUser != nil {
+//            
+//            let hamburgerViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController") as! HamburgerViewController
+//            
+//            let hamburgerMenuViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerMenuViewController") as! HamburgerMenuViewController
+//            
+//            window?.rootViewController = hamburgerViewController
+//            
+//            hamburgerMenuViewController.hamburgerViewController = hamburgerViewController
+//            
+//            hamburgerViewController.hamburgerMenuViewController = hamburgerMenuViewController
+//            
+//        }
+//
     }
 
     func applicationWillTerminate(application: UIApplication) {

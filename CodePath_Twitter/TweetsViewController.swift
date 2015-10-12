@@ -40,7 +40,11 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.registerNib(UINib(nibName: "MultiuseTweetCell", bundle: nil), forCellReuseIdentifier: "MultiuseTweetCell")
 
         refreshTimelineTweets()
-        tableView.reloadData()
+
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        refreshTimelineTweets()
     }
     
     func refreshTimelineTweets() {
@@ -54,6 +58,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             }
         }
         if timelineTitle! == "Home" {
+            print("loading home timeline")
             TwitterClient.sharedinstance.homeTimelineWithParams(nil) { (tweets, error) -> () in
             self.tweets = tweets
             self.tableView.reloadData()
